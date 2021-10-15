@@ -12,6 +12,7 @@ import {
 import { BoardsService } from './boards.service';
 import { Board, BoardStatus } from './board.model';
 import { CreateBoardDto } from './dto/createBoard.dto';
+import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
 
 @Controller('boards') // 이 컨트롤러는 boards 의 컨트롤러다
 export class BoardsController {
@@ -21,6 +22,7 @@ export class BoardsController {
 
   @Get('/') //밑에있는 함수가 어떤 핸들러인지
   getAllBoards(): Board[] {
+
     return this.boardsService.getAllBoards();
   }
 
@@ -40,7 +42,7 @@ export class BoardsController {
   @Patch('/:id/status')
   updateBoardStatus(
     @Param('id') id: string,
-    @Body('status') status: BoardStatus,
+    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ) {
     return this.boardsService.updateBoardStatus(id, status);
   }

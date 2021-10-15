@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { v1 as uuid } from 'uuid'; //랜덤 ID값을 주는 라이브러리
 import { CreateBoardDto } from './dto/createBoard.dto';
@@ -25,15 +25,19 @@ export class BoardsService {
   }
 
   getBoardById(id: string): Board {
-    return this.boards.find((board) => {
+    const found = this.boards.find((board) => {
       board.id === id;
+      if (!found)
+        throw new NotFoundException(`게시물의 id${id}값을 찾을 수 없습니다.`);
     });
+    return found;
   }
 
   deleteBoardById(id: string): void {
+    const found = this.getBoardById(id);
     this.boards.filter((board) => {
-      board.id !== id;
-    }); 
+      board.id !== found.id;
+    });
   }
 
   updateBoardStatus(id: string, status: BoardStatus): Board {
