@@ -33,7 +33,7 @@ export class BoardsService {
   deleteBoardById(id: string): void {
     this.boards.filter((board) => {
       board.id !== id;
-    });
+    }); 
   }
 
   updateBoardStatus(id: string, status: BoardStatus): Board {
