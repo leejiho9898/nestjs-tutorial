@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BoardStatus } from './board.model';
+import { BoardStatus } from './board-status.enum';
 
 @Entity() 
 //@Entity({name :'users'}) 테이블명을 따로 지정하지 않아도 클래스명으로 매핑하지만, 이런식으로 옵션으로 테이블명을 지정할 수 있음.
