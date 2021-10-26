@@ -1,9 +1,19 @@
-import { IsNotEmpty } from 'class-validator';
+import { Board } from '../board.entity';
+import { PickType } from '@nestjs/swagger';
 
-export class CreateBoardDto {
-  @IsNotEmpty()
-  title: string;
+export class CreateBoardDto extends PickType(Board, [
+  'title',
+  'description',
+  'status',
+  'deadline',
+]) {}
 
-  @IsNotEmpty()
-  description: string;
-}
+// import { IsNotEmpty } from 'class-validator';
+
+// export class CreateBoardDto {
+//   @IsNotEmpty()
+//   title: string;
+
+//   @IsNotEmpty()
+//   description: string;
+// }
